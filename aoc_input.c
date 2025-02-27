@@ -6,6 +6,8 @@
 #include <stdio.h>
 
 #ifdef ONLINE_GET
+/* TODO when implemented put it into a file and put into gitignore
+ * to not leak it */
 const char *token = "";
 const char *url = "https://adventofcode.com/2023/day/%s/input";
 
