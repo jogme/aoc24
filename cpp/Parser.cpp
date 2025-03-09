@@ -2,6 +2,10 @@
  * The file can be either "dummy" or "input".
  * @author: Norbert Pocs
  */
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 #include "Parser.h"
 

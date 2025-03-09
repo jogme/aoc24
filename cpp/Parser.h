@@ -1,11 +1,7 @@
 #pragma once
 
 #include <string>
-#include <fstream>
-#include <iostream>
-#include <sstream>
 #include <vector>
-#include <stdexcept>
 
 class Parser {
     private:
