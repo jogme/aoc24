@@ -1,3 +1,7 @@
+#pragma once
+
+#include <stddef.h>
+
 size_t solve1(char *input);
 size_t solve2(char *input);
 size_t solve3(char *input);

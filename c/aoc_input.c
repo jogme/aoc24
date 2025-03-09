@@ -4,6 +4,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #ifdef ONLINE_GET
 /* TODO when implemented put it into a file and put into gitignore
@@ -20,7 +21,8 @@ static int get_file(short n_day) {
 }
 #endif /* ONLINE_GET */
 
-const char *aoc_input_file_template = "%h.input";
+// TODO change back to .input
+const char *aoc_input_file_template = "input_files/%d.dummy";
 
 /*
  * @param n_day The number of the day which should be loaded
@@ -69,11 +71,14 @@ int read_file(short n_day, char **input) {
         fclose(f);
         return -1;
     }
-    rc_f = fread(*input, 1, file_size);
+    rc_f = fread(tmp, 1, file_size, f);
     if (rc_f != file_size) {
+        free(tmp);
         fclose(f);
         return -1;
     }
+
+    *input = tmp;
 
     fclose(f);
     return rc;
