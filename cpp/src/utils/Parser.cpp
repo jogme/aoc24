@@ -50,6 +50,8 @@ void Parser::tokenize_data() {
     }
 }
 
+/* TODO write test here */
+/*
 int main() {
     try {
         Parser p = Parser(1, true);
@@ -65,3 +67,4 @@ int main() {
     
     return 0;
 }
+*/

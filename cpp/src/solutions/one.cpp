@@ -18,8 +18,7 @@ static int solve_b(Parser& p) {
     return 0;
 }
 
-void solve_one() {
-    Parser p(1, true);
+void solve_one(Parser& p) {
     p.tokenize_data();
     int a, b;
 
@@ -28,10 +27,4 @@ void solve_one() {
 
     std::cout << "a: " << a << "\n";
     std::cout << "b: " << b << "\n";
-}
-
-int main() {
-    solve_one();
-
-    return 0;
 }
