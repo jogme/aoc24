@@ -1,7 +1,7 @@
-reader: Parser.cpp Parser.h
-	g++ -Wall -Wextra -Werror $^ -o reader
+one: one.cpp Parser.cpp Parser.h
+	g++ -Wall -Wextra -Werror $^ -o one
 
 clean:
-	rm -rf reader
+	rm -f one
 
 .phony: clean
