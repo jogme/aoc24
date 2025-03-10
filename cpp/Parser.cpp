@@ -35,13 +35,29 @@ void Parser::read_file(void) {
     file.close();
 }
 
+void Parser::tokenize_data() {
+    if (this->input_data.empty()) {
+        throw std::runtime_error("Can't tokenize; the input data was not yet read!");
+    }
+    for (std::string& s : this->input_data) {
+        std::istringstream iss(s);
+        std::vector<std::string> tmp_v;
+        std::string word;
+        while (iss >> word) {
+            tmp_v.push_back(word);
+        }
+        this->tokens.push_back(tmp_v);
+    }
+}
+
 int main() {
     try {
-        Parser p = Parser(1, false);
+        Parser p = Parser(1, true);
         std::cout << "file contents:\n";
         for (const auto& l : p.input_data) {
             std::cout << l << '\n';
         }
+        p.tokenize_data();
     } catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
         return -1;
