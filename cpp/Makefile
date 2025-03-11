@@ -17,6 +17,10 @@ all: $(TARGET)
 
 tests: $(TESTS_EXE)
 
+.PHONY: run
+run: $(TARGET)
+	@$(TARGET)
+
 $(SRC_OBJS): $(BUILD_DIR_SRC)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
 	$(CC) $(C_FLAGS) -c $^ -o $@
 
