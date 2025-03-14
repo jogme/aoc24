@@ -15,6 +15,7 @@ SRC_OBJS=$(SRC:src/%.cpp=$(BUILD_DIR_SRC)/%.o)
 TESTS=$(wildcard $(TESTS_DIR)/*.cpp)
 TESTS_EXE=$(TESTS:$(TESTS_DIR)/%.cpp=$(BUILD_DIR_TESTS)/%)
 TESTS_SRC_OBJS=$(filter-out $(BUILD_DIR_SRC)/$(TARGET_NAME).o, $(SRC_OBJS))
+TESTS_HELPER_FILES=$(TESTS_DIR)/read_test
 
 all: $(TARGET)
 
@@ -31,10 +32,10 @@ $(TARGET): $(SRC_OBJS) | $(BUILD_DIR)
 
 $(TESTS_EXE): $(TESTS) $(TESTS_SRC_OBJS) | $(BUILD_DIR)
 	$(CC) $(C_FLAGS) -o $@ $^ $(LIBS) -I $(SRC_DIR)
-	cp $(TESTS_DIR)/read_test $(BUILD_DIR_TESTS)
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR_SRC) $(BUILD_DIR_TESTS)
+	cp $(TESTS_HELPER_FILES) $(BUILD_DIR_TESTS)
 
 .PHONY: clean
 clean:
