@@ -8,14 +8,29 @@
 #include <stdexcept>
 
 #include "Parser.h"
+#include "Downloader.h"
 
 Parser::Parser(int day, bool dummy)
               : day{day}, dummy{dummy} {
     std::stringstream ss;
     ss << this->input_file_dir << day << "." << (dummy ? "dummy" : "input");
     this->path = ss.str();
+    Downloader d(day);
 
-    Parser::read_file();
+    if (!dummy) {
+        try {
+            this->input_data = d.read_file(this->path);
+        } catch (const std::exception& e) {
+            std::string pusher;
+            std::stringstream ss(d.get_input_data());
+
+            while(std::getline(ss, pusher, '\n')) {
+                this->input_data.push_back(pusher);
+            }
+            std::cout << this->path << "\n";
+            d.write_file(this->path, this->input_data);
+        }
+    }
 }
 
 
