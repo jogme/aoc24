@@ -41,4 +41,14 @@ TEST_CASE("write_file function") {
     std::remove(WRITE_FILE_TEST_NAME);
 }
 
+TEST_CASE("get_input_data function") {
+    Downloader d(1);
+    std::string s;
+
+    s = d.get_input_data();
+}
+
+TEST_SUITE_END();
+
+TEST_SUITE_BEGIN("parser" * doctest::description("Tests the class Parser"));
 TEST_SUITE_END();
