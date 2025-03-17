@@ -17,16 +17,11 @@ Parser::Parser(int day, bool dummy)
     this->path = ss.str();
     Downloader d(day);
 
-    if (!dummy) {
-        try {
-            this->input_data = d.read_file(this->path);
-        } catch (const std::exception& e) {
-            std::string pusher;
-            std::stringstream ss(d.get_input_data());
-
-            while(std::getline(ss, pusher)) {
-                this->input_data.push_back(pusher);
-            }
+    try {
+        this->input_data = d.read_file(this->path);
+    } catch (const std::exception& e) {
+        if (!dummy) {
+            this->input_data = this->deserialize_input(d.get_input_data());
             d.write_file(this->path, this->input_data);
         }
     }
