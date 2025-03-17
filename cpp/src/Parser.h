@@ -11,6 +11,8 @@ class Parser {
         std::string path;
 
         void read_file(void);
+        std::vector<std::string> deserialize_input(std::string s);
+std::vector<std::string> deserialize_input(std::ifstream& s);
     public:
         std::vector <std::string> input_data;
         std::vector <std::vector <std::string>> tokens;

@@ -27,6 +27,28 @@ Parser::Parser(int day, bool dummy)
     }
 }
 
+std::vector<std::string> Parser::deserialize_input(std::string s) {
+    std::string line;
+    std::stringstream ss(s);
+    std::vector<std::string> ret;
+
+    while(std::getline(ss, line)) {
+        ret.push_back(line);
+    }
+
+    return ret;
+}
+
+std::vector<std::string> Parser::deserialize_input(std::ifstream& s) {
+    std::string line;
+    std::vector<std::string> ret;
+
+    while(std::getline(s, line)) {
+        ret.push_back(line);
+    }
+
+    return ret;
+}
 
 void Parser::read_file(void) {
     std::ifstream file;
@@ -37,9 +59,7 @@ void Parser::read_file(void) {
         throw std::runtime_error("Could not open file: \"" + this->path + "\"");
     }
 
-    while(std::getline(file, line)) {
-        input_data.push_back(line);
-    }
+    this->input_data = this->deserialize_input(file);
 
     file.close();
 }
