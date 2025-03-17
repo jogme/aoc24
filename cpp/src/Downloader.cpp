@@ -96,7 +96,7 @@ void Downloader::write_file(std::string file_name, std::vector<std::string> data
     }
 
     for (const auto& s : data) {
-        file << s;
+        file << s << "\n";
     }
 
     file.close();

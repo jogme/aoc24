@@ -24,10 +24,9 @@ Parser::Parser(int day, bool dummy)
             std::string pusher;
             std::stringstream ss(d.get_input_data());
 
-            while(std::getline(ss, pusher, '\n')) {
+            while(std::getline(ss, pusher)) {
                 this->input_data.push_back(pusher);
             }
-            std::cout << this->path << "\n";
             d.write_file(this->path, this->input_data);
         }
     }
