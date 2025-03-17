@@ -1,5 +1,5 @@
 CC=g++
-C_FLAGS=-Wall -Wextra -Werror
+C_FLAGS=-Wall -Wextra -Werror -g
 LIBS=-lcurl
 BUILD_DIR=build
 BUILD_DIR_SRC=$(BUILD_DIR)/src
