@@ -8,6 +8,8 @@
 #include "Parser.h"
 #include "aoc.h"
 
+std::vector<void (*) (Parser&)> day_f = {solve_one};
+
 int main(int argc, char **argv) {
     int opt, day;
     bool dummy = false;
@@ -26,7 +28,7 @@ int main(int argc, char **argv) {
     day = std::stoi(argv[optind]);
 
     Parser p(day, dummy);
-    solve_one(p);
+    day_f[day-1](p);
 
     return 0;
 }
