@@ -10,18 +10,23 @@
 
 #include "Parser.h"
 
+using std::vector;
+using std::string;
+using std::cout;
+using std::sort;
+
 /* Parser should already be loaded here */
-static int solve_a(std::vector <int> vi1, std::vector <int> vi2) {
-    std::vector <int> tmp(vi1.size());
+static int solve_a(vector <int> vi1, vector <int> vi2) {
+    vector <int> tmp(vi1.size());
     std::transform(vi1.begin(), vi1.end(), vi2.begin(), tmp.begin(), [](int a, int b){return std::abs(a-b);});
 
     return std::reduce(tmp.begin(), tmp.end());
 }
 
 /* Parser should already be loaded here */
-static int solve_b(std::vector <int> vi1, std::vector <int> vi2) {
+static int solve_b(vector <int> vi1, vector <int> vi2) {
     std::map <int, int> occurrence;
-    std::vector <int> tmp;
+    vector <int> tmp;
 
     for (const auto& i : vi1) {
         int o = std::count(vi2.begin(), vi2.end(), i);
@@ -36,19 +41,19 @@ static int solve_b(std::vector <int> vi1, std::vector <int> vi2) {
 void solve_one(Parser& p) {
     p.tokenize_data();
     int a, b;
-    std::vector <int> vi1;
-    std::vector <int> vi2;
+    vector <int> vi1;
+    vector <int> vi2;
 
-    for (const std::vector<std::string>& vs : p.tokens) {
+    for (const vector<string>& vs : p.tokens) {
         vi1.push_back(std::stoi(vs[0]));
         vi2.push_back(std::stoi(vs[1]));
     }
-    std::sort(vi1.begin(), vi1.end());
-    std::sort(vi2.begin(), vi2.end());
+    sort(vi1.begin(), vi1.end());
+    sort(vi2.begin(), vi2.end());
 
     a = solve_a(vi1, vi2);
     b = solve_b(vi1, vi2);
 
-    std::cout << "a: " << a << "\n";
-    std::cout << "b: " << b << "\n";
+    cout << "a: " << a << "\n";
+    cout << "b: " << b << "\n";
 }

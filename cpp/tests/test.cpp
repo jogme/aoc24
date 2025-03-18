@@ -16,11 +16,14 @@
 
 #include "Downloader.h"
 
+using std::string;
+using std::vector;
+
 TEST_SUITE_BEGIN("downloader" * doctest::description("Tests the class Downloader"));
 
 TEST_CASE("read_file function") {
     Downloader d(1);
-    std::vector<std::string> vs;
+    vector<string> vs;
 
     CHECK_THROWS(d.read_file("non_existento_filo"));
     vs = d.read_file(READ_FILE_TEST_NAME);
@@ -29,7 +32,7 @@ TEST_CASE("read_file function") {
 
 TEST_CASE("write_file function") {
     Downloader d(1);
-    std::vector<std::string> vs = {WRITE_FILE_TEST_CONTENT};
+    vector<string> vs = {WRITE_FILE_TEST_CONTENT};
 
     d.write_file(WRITE_FILE_TEST_NAME, vs);
     CHECK_FALSE(access(WRITE_FILE_TEST_NAME, F_OK) == -1);
@@ -43,7 +46,7 @@ TEST_CASE("write_file function") {
 
 TEST_CASE("get_input_data function") {
     Downloader d(1);
-    std::string s;
+    string s;
 
     s = d.get_input_data();
 }

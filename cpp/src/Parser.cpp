@@ -10,9 +10,14 @@
 #include "Parser.h"
 #include "Downloader.h"
 
+using std::string;
+using std::stringstream;
+using std::vector;
+using std::runtime_error;
+
 Parser::Parser(int day, bool dummy)
               : day{day}, dummy{dummy} {
-    std::stringstream ss;
+    stringstream ss;
     ss << this->input_file_dir << day << "." << (dummy ? "dummy" : "input");
     this->path = ss.str();
     Downloader d(day);
@@ -27,21 +32,21 @@ Parser::Parser(int day, bool dummy)
     }
 }
 
-std::vector<std::string> Parser::deserialize_input(std::string s) {
-    std::string line;
-    std::stringstream ss(s);
-    std::vector<std::string> ret;
+vector<string> Parser::deserialize_input(string s) {
+    string line;
+    stringstream ss(s);
+    vector<string> ret;
 
-    while(std::getline(ss, line)) {
+    while(getline(ss, line)) {
         ret.push_back(line);
     }
 
     return ret;
 }
 
-std::vector<std::string> Parser::deserialize_input(std::ifstream& s) {
-    std::string line;
-    std::vector<std::string> ret;
+vector<string> Parser::deserialize_input(std::ifstream& s) {
+    string line;
+    vector<string> ret;
 
     while(std::getline(s, line)) {
         ret.push_back(line);
@@ -52,11 +57,11 @@ std::vector<std::string> Parser::deserialize_input(std::ifstream& s) {
 
 void Parser::read_file(void) {
     std::ifstream file;
-    std::string line;
+    string line;
 
     file.open(this->path);
     if (!file.is_open()) {
-        throw std::runtime_error("Could not open file: \"" + this->path + "\"");
+        throw runtime_error("Could not open file: \"" + this->path + "\"");
     }
 
     this->input_data = this->deserialize_input(file);
@@ -66,12 +71,12 @@ void Parser::read_file(void) {
 
 void Parser::tokenize_data() {
     if (this->input_data.empty()) {
-        throw std::runtime_error("Can't tokenize; the input data was not yet read!");
+        throw runtime_error("Can't tokenize; the input data was not yet read!");
     }
-    for (std::string& s : this->input_data) {
+    for (string& s : this->input_data) {
         std::istringstream iss(s);
-        std::vector<std::string> tmp_v;
-        std::string word;
+        vector<string> tmp_v;
+        string word;
         while (iss >> word) {
             tmp_v.push_back(word);
         }
@@ -84,13 +89,13 @@ void Parser::tokenize_data() {
 int main() {
     try {
         Parser p = Parser(1, true);
-        std::cout << "file contents:\n";
+        cout << "file contents:\n";
         for (const auto& l : p.input_data) {
-            std::cout << l << '\n';
+            cout << l << '\n';
         }
         p.tokenize_data();
-    } catch (const std::exception& e) {
-        std::cerr << e.what() << '\n';
+    } catch (const exception& e) {
+        cerr << e.what() << '\n';
         return -1;
     }
     

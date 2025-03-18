@@ -12,9 +12,14 @@
 
 #include "Downloader.h"
 
+using std::stringstream;
+using std::string;
+using std::vector;
+using std::runtime_error;
+
 Downloader::Downloader(int day) : day{day} {
-    std::stringstream ss;
-    std::vector<std::string> tmp;
+    stringstream ss;
+    vector<string> tmp;
 
     ss << this->url_templ1 << day << this->url_templ2;
     this->url = ss.str();
@@ -34,7 +39,7 @@ static size_t callback(char *data, size_t size, size_t nmemb, void **userp) {
     return total_size;
 }
 
-std::string Downloader::get_input_data() {
+string Downloader::get_input_data() {
     CURL *handle;
     CURLcode result;
     char* response_data = NULL;
@@ -43,7 +48,7 @@ std::string Downloader::get_input_data() {
 
     handle = curl_easy_init();
     if (!handle) {
-        throw std::runtime_error("Could not initialize curl handle\n");
+        throw runtime_error("Could not initialize curl handle\n");
     }
     curl_easy_setopt(handle, CURLOPT_URL, this->url.c_str());
     curl_easy_setopt(handle, CURLOPT_COOKIE, this->token.c_str());
@@ -55,27 +60,27 @@ std::string Downloader::get_input_data() {
     if (result != CURLE_OK) {
         curl_easy_cleanup(handle);
         curl_global_cleanup();
-        throw std::runtime_error("Could not read input data from the cloud\n");
+        throw runtime_error("Could not read input data from the cloud\n");
     }
 
     curl_easy_cleanup(handle);
     curl_global_cleanup();
 
-    std::string s(response_data);
+    string s(response_data);
     free(response_data);
 
     return s;
 }
 
 /* The token is awaited to be on a single line */
-std::vector<std::string> Downloader::read_file(std::string file_name) {
+vector<string> Downloader::read_file(string file_name) {
     std::ifstream file;
-    std::string line;
-    std::vector<std::string> input_data;
+    string line;
+    vector<string> input_data;
 
     file.open(file_name);
     if (!file.is_open()) {
-        throw std::runtime_error("Could not open file: \"" + file_name + "\"");
+        throw runtime_error("Could not open file: \"" + file_name + "\"");
     }
 
     while(std::getline(file, line)) {
@@ -87,12 +92,12 @@ std::vector<std::string> Downloader::read_file(std::string file_name) {
     return input_data;
 }
 
-void Downloader::write_file(std::string file_name, std::vector<std::string> data) {
+void Downloader::write_file(string file_name, vector<string> data) {
     std::ofstream file;
 
     file.open(file_name);
     if (!file.is_open()) {
-        throw std::runtime_error("Could not open file: \"" + file_name + "\"");
+        throw runtime_error("Could not open file: \"" + file_name + "\"");
     }
 
     for (const auto& s : data) {
