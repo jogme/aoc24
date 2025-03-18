@@ -27,6 +27,12 @@ int main(int argc, char **argv) {
 
     day = std::stoi(argv[optind]);
 
+    /* it is never going to be bigger than MAX_INT */
+    if (day > (int)day_f.size()) {
+        std::cerr << "No implementation for day " << day << "\n";
+        return -1;
+    }
+
     Parser p(day, dummy);
     day_f[day-1](p);
 
