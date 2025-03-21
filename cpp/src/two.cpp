@@ -9,23 +9,18 @@
 
 using std::vector;
 
-static int solve(vector<vector<int>>& in) {
+static int solve_two_a(vector<vector<int>>& in) {
     int safe = 0;
     for (auto& v : in) {
         bool desc = v[1] < v[0];
-        size_t good = 0;
+        bool good = true;
         for (size_t i=1; i<v.size(); i++) {
-            if (v[i] != v[i-1]) {
-                if (!((v[i] < v[i-1]) ^ desc) && abs(v[i]-v[i-1]) <= 3) {
-                    good++;
-                } else {
-                    break;
-                }
+            if (v[i] == v[i-1] || ((v[i] >= v[i-1]) ^ !desc) || (abs(v[i]-v[i-1]) > 3)) {
+                good = false;
+                break;
             }
         }
-        /* as the difference are counted, the counted number is always all-1 */
-        size_t v_size = v.size()-1;
-        if (good == v_size) {
+        if (good) {
             safe++;
         }
     }
@@ -36,6 +31,6 @@ static int solve(vector<vector<int>>& in) {
 void solve_two(Parser& p) {
     p.tokenize_data_int();
 
-    std::cout << "a: " << solve(p.tokens_int) << "\n";
+    std::cout << "a: " << solve_two_a(p.tokens_int) << "\n";
     //std::cout << "b: " << solve(p.tokens_int, true) << "\n";
 }
