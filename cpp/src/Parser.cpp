@@ -84,6 +84,21 @@ void Parser::tokenize_data() {
     }
 }
 
+void Parser::tokenize_data_int() {
+    if (this->input_data.empty()) {
+        throw runtime_error("Can't tokenize; the input data was not yet read!");
+    }
+    for (string& s : this->input_data) {
+        std::istringstream iss(s);
+        vector<int> tmp_v;
+        string word;
+        while (iss >> word) {
+            tmp_v.push_back(std::stoi(word));
+        }
+        this->tokens_int.push_back(tmp_v);
+    }
+}
+
 /* TODO write test here */
 /*
 int main() {

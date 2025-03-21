@@ -8,7 +8,7 @@
 #include "Parser.h"
 #include "aoc.h"
 
-std::vector<void (*) (Parser&)> day_f = {solve_one};
+std::vector<void (*) (Parser&)> day_f = {solve_one, solve_two};
 
 int main(int argc, char **argv) {
     int opt, day;
